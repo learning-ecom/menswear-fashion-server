@@ -9,3 +9,8 @@ export const createUser =Joi.object({
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
 })
+
+export const userLogin=Joi.object({
+    email:Joi.string().email().required(),
+    password:Joi.string().required(),
+})
