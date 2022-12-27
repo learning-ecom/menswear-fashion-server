@@ -40,29 +40,32 @@ export interface  IUser{
 export interface IMongooseUpdate{
     num?:number;
 }
-// export interface IImg{
-//     img_type?:{
+export interface IImg{
+        banner?:[string],
+        short_banner?:[string],
+        autumn?:[string],
+        short_autumn?:[string],
+        shop_by?:[string],
+        journal?:[{img?:string,date?:string,desc?:string}],
+        footer_img?:[string],
+}
 
-//         banner?:string,
-//         short_banner?:string,
-//         autumn?:string,
-//         short_autumn?:string,
-//         shop_by?:string,
-//         journal?:string,
-//         footer_img?:string,
-//     },
-    
-//         card:[{
-//             imge?:string,
-//             desc?:string,
-//             amount:number
-//         }]
+export interface IProduct{
+    img?:string
+    ,desc?:string
+    ,amount?:number,
+    categories?:[string],
+    brand?:string,
+    color?:[string],
+    size?:[string],
+    price?:string,
+    stock?:[{S?:number,M?:number,L?:number,XL?:number,XXL?:number,XXXL:number},]
+}
 
-// }
+export type IProductArray=IProduct[]
 // export interface ISessiom{
 //     _id?:any,
 //     user?:any,
-//     logout?:Date,
 //     created_at?:Date,
 //     modified_at?:Date
 // }

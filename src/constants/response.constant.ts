@@ -17,13 +17,21 @@ export const USER_RESPONSE={
     
 }
 
-// export const IMAGE_RESPONSE={
-//     SUCCESS:'success',
-//     FAILED:'failed',
-//     IMAGE_CREATED:'Image Created Successfully',
-//    GET_IMAGE:'Image Get Successfully',
-//    GET_DOESNT_IMAGE:"Image Doesn't Get Successfully",
-//     IMAGE_DOESNT_CREATED:"Image Doesn't Created ",
+export const IMAGE_RESPONSE={
+    SUCCESS:'success',
+    FAILED:'failed',
+    IMAGE_CREATED:'Image Created Successfully',
+   GET_IMAGE:'Image Get Successfully',
+   GET_DOESNT_IMAGE:"Image Doesn't Get Successfully",
+    IMAGE_DOESNT_CREATED:"Image Doesn't Created ",
+}
 
 
-// }
+export const PRODUCT_RESPONSE={
+    SUCCESS:'success',
+    FAILED:'failed',
+    PRODUCT_CREATED:"Product Created Successfully",
+    GET_PRODUCT:"Product Get Successfully",
+    GET_DOESNT_PRODUCT:"Product Doesn't Get Successfully",
+    PRODUCT_DOESNT_CREATED:"Product Doesn't Created ",
+}

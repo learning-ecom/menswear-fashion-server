@@ -6,6 +6,8 @@ import bodyParser from "body-parser";
 import cors from "cors"
 import mongoose from "mongoose";
 import UserRoute from "./router/user.router"
+import ImgRoute from "./router/img.router"
+import ProductRoute from "./router/product.router"
 
 const app = express();
 const server= http.createServer(app);
@@ -30,6 +32,8 @@ connectDB()
 
 // routes
 app.use("/api/v1/auth", UserRoute);
+app.use("/api/v1/img", ImgRoute);
+app.use("/api/v1/product", ProductRoute);
 
 // Error Handler
 app.use(function(err, req, res, next) {
