@@ -1,15 +1,13 @@
 import { USER_RESPONSE } from "../constants/response.constant";
 import { INextFunction, IRequest, IResponse, IUser } from "../helpers/interface.helper";
 import UserService from "../services/user.service";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 import { USER_ROLES } from "../constants/user.constant";
 import { generateSessionToken } from "../helpers/function.helper";
-
-
+import HTTP from "http-status-codes";
 
 const UserController = {
   userSignup: async (req: IRequest, res: IResponse, next: INextFunction) => {
-    
     try {
       let email = req.body.email.trim().toLowerCase();
       let user: IUser = await UserService.userDetails(undefined, email);
@@ -23,7 +21,7 @@ const UserController = {
 
         // create a new user
         await UserService.createUser(req.body);
-        
+
         // once create a user and get the user
         let user: IUser = await UserService.userDetails(undefined, email);
 
@@ -35,13 +33,55 @@ const UserController = {
 
         // status update
         res.send({ status: USER_RESPONSE.SUCCESS, message: USER_RESPONSE.USER_CREATED, data: user, token: token });
+      } else if (user && user.is_deleted) {
+        let hash = await bcrypt.hash(req.body.password, 10);
+        req.body.email = email;
+        req.body.password = hash;
+        req.body.role = USER_ROLES.USER;
+        req.body.is_deleted = false;
+
+        const query = { _id: user._id };
+        const update = await UserService.updateUser(query, req.body);
+        if (update) {
+          const token = await UserService.generateToken(user._id, user.email, user.role, session_token);
+          res.send({ status: USER_RESPONSE.SUCCESS, message: USER_RESPONSE.USER_CREATED, data: user, token: token });
+        } else {
+          res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status: USER_RESPONSE.FAILED, message: USER_RESPONSE.SIGNUP_FAILED });
+        }
+      } else {
+        res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status: USER_RESPONSE.FAILED, message: USER_RESPONSE.EMAIL_EXISTS });
       }
     } catch (error) {
       error.desc = USER_RESPONSE.SIGNUP_FAILED;
       next(error);
     }
   },
+  userLogin: async (req: IRequest, res: IResponse, next: INextFunction) => {
+    try {
+      let email = req.body.email.trim().toLowerCase();
+      const user: IUser = await UserService.userDetails(undefined, email);
+      let session_token = generateSessionToken();
+      if (user) {
+        let isTrue = await bcrypt.compare(req.body.password, user.password);
+        if (isTrue) {
+          let query = { _id: user._id };
+          await UserService.updateUser(query, { session_token });
+          const token = await UserService.generateToken(user._id, user.email, user.role, session_token);
+          res.send({ status: USER_RESPONSE.SUCCESS, message: USER_RESPONSE.USER_EXIST, data: user, token, role: user.role });
+          // await UserService.createSession({user:user._id})
+          
+        } else {
+          res.status(HTTP.UNAUTHORIZED).send({ status: USER_RESPONSE.FAILED, message: USER_RESPONSE.INCORRECT_PASSWORD });
+        }
+      } else {
+        res.status(HTTP.UNAUTHORIZED).send({ status: USER_RESPONSE.FAILED, message: USER_RESPONSE.USER_DOESNT_EXIST });
+      }
+    } catch (error) {
+      error.desc = USER_RESPONSE.LOGIN_FAILED;
+      next(error);
+    }
+  },
+  
 };
-
 
 export default UserController;

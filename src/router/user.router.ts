@@ -6,7 +6,8 @@ import UserController from '../controllers/user.controller';
 const validator = expressValidator.createValidator({passError: true,statusCode:400});
 const router=Router();
 
-router.post("/user_signup",validator.body(Validation.createUser),UserController.userSignup)
+router.post("/user_signup",validator.body(Validation.userSignup),UserController.userSignup)
+router.post("/user_login",validator.body(Validation.userLogin),UserController.userLogin)
 
 export default router
 

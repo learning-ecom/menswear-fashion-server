@@ -1,15 +1,16 @@
 import { IMongooseUpdate, IUser } from "../helpers/interface.helper";
 import User from "../models/user.model";
 import jwt from "jsonwebtoken";
-import dotenv  from "dotenv";
+// import Session from "../models/session.model";
+// import { USER_RESPONSE } from "../constants/response.constant";
 
-dotenv.config()
 const UserService = {
   // create a new UserService
   createUser: async (data: IUser) => {
     const user = await User.create(data);
     return user;
   },
+ 
 
   // get the user
   userDetails: async (id?: string, email?: string): Promise<IUser> => {
@@ -49,6 +50,33 @@ const UserService = {
     }
     return true;
   },
+
+
+
+// session
+
+// createSession: async(body):Promise<ISessiom>=>{
+  
+//   // logout session
+//   const previousSession:ISessiom= await Session.findOne({user:body.user},{},{sort:{created_at:-1}})
+//   console.log('body',previousSession);
+//   if(previousSession && !previousSession.logout){
+// await UserService.updateSession({_id: previousSession._id},{logout:new Date()})
+//   }
+//   let session = await Session.create(body)
+//   return session
+// },
+
+
+// updateSession:async(query:ISessiom,update:ISessionUpdate)=>{
+//   const updateSession= await Session.updateOne(query,update).lean()
+//   if(updateSession.modifiedCount===0){
+//     throw new Error(USER_RESPONSE.SESSION_UPDATE_ERROR);
+//   }
+// }
+
+
+
 };
 export default UserService;
            
