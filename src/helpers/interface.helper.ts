@@ -51,6 +51,7 @@ export interface IImg{
 }
 
 export interface IProduct{
+    _id?:string,
     img?:string
     ,desc?:string
     ,amount?:number,
@@ -59,10 +60,38 @@ export interface IProduct{
     color?:[string],
     size?:[string],
     price?:string,
+    ratings:number,
+    is_deleted?:boolean
     stock?:[{S?:number,M?:number,L?:number,XL?:number,XXL?:number,XXXL:number},]
 }
 
+
 export type IProductArray=IProduct[]
+
+
+
+export interface ICart{
+    _id?:string,
+    size?:string,
+    quantity?:number,
+    product?:any,
+    user?:any,
+}
+
+
+export interface ICartPopulated{
+    _id?:string,
+    size?:string,
+    quantity?:number,
+    product?:IProduct,
+    user?:IUser,
+
+}
+export interface ICartDelete{
+    cart_id?:string
+}
+
+export type ICartArray=ICartPopulated[]
 // export interface ISessiom{
 //     _id?:any,
 //     user?:any,

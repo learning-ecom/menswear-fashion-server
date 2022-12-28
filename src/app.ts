@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import UserRoute from "./router/user.router"
 import ImgRoute from "./router/img.router"
 import ProductRoute from "./router/product.router"
+import CartRoute from "./router/cart.router"
 
 const app = express();
 const server= http.createServer(app);
@@ -34,6 +35,7 @@ connectDB()
 app.use("/api/v1/auth", UserRoute);
 app.use("/api/v1/img", ImgRoute);
 app.use("/api/v1/product", ProductRoute);
+app.use("/api/v1/cart", CartRoute);
 
 // Error Handler
 app.use(function(err, req, res, next) {
