@@ -31,7 +31,9 @@ export const PRODUCT_RESPONSE={
     SUCCESS:'success',
     FAILED:'failed',
     PRODUCT_CREATED:"Product Created Successfully",
+    PRODUCT_DOESNT_CREATED:"Product Doesn't Created ",
+    GET_ALL_PRODUCT:"Product Get Successfully",
+    GET_ALL_DOESNT_PRODUCT:"Product Doesn't Get Successfully",
     GET_PRODUCT:"Product Get Successfully",
     GET_DOESNT_PRODUCT:"Product Doesn't Get Successfully",
-    PRODUCT_DOESNT_CREATED:"Product Doesn't Created ",
 }
