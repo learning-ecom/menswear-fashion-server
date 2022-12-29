@@ -60,15 +60,15 @@ export const getProduct: any = Joi.object({
 
 
 export const  createCart:any=Joi.object({
-  product_id:Joi.string().required(),
-  size:Joi.string().required(),
-  quantity:Joi.number().required()
+  product_id:Joi.string().optional(),
+  size:Joi.string().optional(),
+  quantity:Joi.number().optional()
 });
 
 
-export const getManyCart:any=Joi.object({
-  user_id:Joi.string().required(),
-})
+// export const getManyCart:any=Joi.object({
+//   user_id:Joi.string().required(),
+// })
 
 export const deleteCartById:any=Joi.object({
   cart_id:Joi.string().required(),

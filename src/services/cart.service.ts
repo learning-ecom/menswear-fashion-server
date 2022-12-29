@@ -1,4 +1,4 @@
-import { ICart, ICartArray, ICartDelete, ICartPopulated } from "../helpers/interface.helper"
+import { ICart, ICartArray,  IDeleteCart, ICartPopulated, IGetCart } from "../helpers/interface.helper"
 import { Populate } from "../helpers/populate.helper";
 import CartModel from "../models/cart.model"
 
@@ -15,9 +15,21 @@ const CartService={
         const  getManyCart= await CartModel.find(query).populate(Populate.cart).lean()
         return getManyCart
     },
-    deleteCartById:async(query:ICartDelete)=>{
-        const deleteCartById=await CartModel.deleteOne(query).lean()
+    deleteCartById:async(query: IDeleteCart)=>{
+        const deleteCartById=await CartModel.findOneAndDelete(query).lean()
         return deleteCartById
+    },
+
+    getCart:async(query:any)=>{
+        const getCart= await CartModel.findOne(query).lean()
+        return getCart
+
+    },
+    updateCart:async(query:any,update:any)=>{
+       
+        const updateCart =await CartModel.updateOne(query,update).lean()
+        return updateCart
+        
     }
 }
 

@@ -87,11 +87,16 @@ export interface ICartPopulated{
     user?:IUser,
 
 }
-export interface ICartDelete{
-    cart_id?:string
+export interface IDeleteCart{
+    _id?:string
+}
+export interface IGetCart{
+    product_id?:string
 }
 
 export type ICartArray=ICartPopulated[]
+
+
 // export interface ISessiom{
 //     _id?:any,
 //     user?:any,
