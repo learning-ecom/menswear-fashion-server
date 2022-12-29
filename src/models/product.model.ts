@@ -11,12 +11,14 @@ const productSchema= new Schema({
     color:[String],
     size:[String],
     price:String,
-    stock:[{S:Number,M:Number,L:Number,XL:Number,XXL:Number,XXXL:Number}]
+    stock:[{S:Number,M:Number,L:Number,XL:Number,XXL:Number,XXXL:Number}],
+    is_deleted:{type:Boolean, default:false},
+    ratings:Number
 
 })
 
 
-const ProductModel = mongoose.model('Product',productSchema)
+const ProductModel = mongoose.model('product',productSchema)
 
 export default ProductModel
 

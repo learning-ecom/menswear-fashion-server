@@ -1,4 +1,4 @@
-import { IImg, INextFunction, IRequest, IResponse, IUser } from "../helpers/interface.helper";
+import { INextFunction, IRequest, IResponse } from "../helpers/interface.helper";
 import HTTP from "http-status-codes";
 import ImgService from "../services/img.service";
 import { IMAGE_RESPONSE } from "../constants/response.constant";
