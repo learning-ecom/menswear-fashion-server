@@ -9,6 +9,7 @@ import UserRoute from "./router/user.router"
 import ImgRoute from "./router/img.router"
 import ProductRoute from "./router/product.router"
 import CartRoute from "./router/cart.router"
+import CouponRoute from "./router/coupon.router"
 
 const app = express();
 const server= http.createServer(app);
@@ -36,6 +37,7 @@ app.use("/api/v1/auth", UserRoute);
 app.use("/api/v1/img", ImgRoute);
 app.use("/api/v1/product", ProductRoute);
 app.use("/api/v1/cart", CartRoute);
+app.use("/api/v1/coupon",CouponRoute)
 
 // Error Handler
 app.use(function(err, req, res, next) {

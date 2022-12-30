@@ -15,7 +15,6 @@ const cartSchema = new Schema({
         ref: "user"
       },
 
-
 })
 const CartModel = mongoose.model("Cart",cartSchema)
 

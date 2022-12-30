@@ -58,3 +58,20 @@ export const CART_RESPONSE={
     DELETE_DOESNT_CART:"Doesn't Deleted CART",
 
 }
+
+
+export const COUPON_RESPONSE={
+    SUCCESS:'Success',
+    FAILED:'Failed',
+    COUPON_CREATED:"Coupon Created Successfully",
+    COUPON_DOESNT_CREATED:"Coupon Doesn't Created ",
+    COUPON_UPDATED:"Coupon Updated Successfully",
+    COUPON_DOESNT_UPDATED:"Coupon Doesn't Updated ",
+    GET_COUPON:"Get Coupon Successfully",
+    GET_DOESNT_COUPON:" Get Coupon Doesn't Successfully",
+    GET_ALL_COUPON:"Get All Coupon Successfully",
+    GET_ALL_DOESNT_COUPON:" Get All Coupon Doesn't Successfully",
+    DELETE_COUPON:"Delete Coupon Successfully",
+    DELETE_DOESNT_COUPON:"Doesn't Deleted Coupon",
+
+}
