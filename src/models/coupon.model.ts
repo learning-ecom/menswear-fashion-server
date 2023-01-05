@@ -12,8 +12,7 @@ const couponSchema = new schema({
      valid_to:Date,
      order_quantity:Number,
      title:String,
-    offer_type:String,
-
+     offer_type:String,
      users:[
         {
             type: mongoose.Types.ObjectId,

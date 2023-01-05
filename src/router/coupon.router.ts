@@ -10,8 +10,8 @@ const router =Router()
 
 
 router.post('/create_coupon',CouponController.createCoupon)
-// router.post('/get_many_Coupon',UserController.verifyToken,CouponController.getManyCoupon)
-// router.post('/get_Coupon',UserController.verifyToken,CouponController.getCoupon)
+router.post('/get_many_coupon',UserController.verifyToken,CouponController.getManyCoupon)
+router.post('/get_coupon',UserController.verifyToken,CouponController.getCoupon)
 // router.delete('/delete_Coupon_by_id',validator.body(Validation.deleteCouponById),UserController.verifyToken,CouponController.deleteCouponById)
 
 
