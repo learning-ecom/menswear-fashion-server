@@ -97,6 +97,26 @@ export interface IGetCart{
 export type ICartArray=ICartPopulated[]
 
 
+export interface ICoupon{
+    text?:string,
+    code?:string,
+    offer_value?:number,
+    valid_from?:Date,
+    valid_to?:Date,
+    order_limit?:number,
+    users?:any[]
+    repeat?:boolean
+    isdeleted?:boolean
+}
+
+
+
+
+
+
+
+
+
 // export interface ISessiom{
 //     _id?:any,
 //     user?:any,
