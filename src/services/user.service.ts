@@ -23,7 +23,7 @@ const UserService = {
     if (email) {
       query.email = email;
     }
-    let user = await User.findOne(query).lean();
+    let user:IUser = await User.findOne(query).lean();
     return user;
   },
 
@@ -50,6 +50,16 @@ const UserService = {
     }
     return true;
   },
+
+  
+  getManyUser:async(query:any)=>{
+    const  getManyUser= await User.find(query).lean()
+    return getManyUser
+},
+deleteUser:async(query: any)=>{
+    const deleteUser=await User.findOneAndDelete(query).lean()
+    return deleteUser
+},
 
 
 

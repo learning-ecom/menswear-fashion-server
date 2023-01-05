@@ -117,6 +117,50 @@ const UserController = {
     }
   },
   
+
+
+  getManyUser:async(req:IRequest,res:IResponse,next:INextFunction)=>{
+    try {
+        const query={
+           user_id:req.decoded.id,
+        }
+        let getManyUser = await  UserService.getManyUser(query)
+
+        if(!getManyUser){
+         return   res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status:USER_RESPONSE.FAILED, message:USER_RESPONSE.GET_ALL_DOESNT_USER});
+        }       
+        res.send({ status:USER_RESPONSE.SUCCESS, message:USER_RESPONSE.GET_ALL_USER ,data:getManyUser ,count:getManyUser.length});
+        } catch (error) {
+          error.desc = USER_RESPONSE.GET_ALL_DOESNT_USER;
+          next(error);
+        }
+  },
+
+  getUser:async(req:IRequest,res:IResponse,next:INextFunction)=>{
+    try {
+      
+        let getUser = await  UserService.userDetails(req.decoded.id,undefined)
+
+        if(!getUser){
+         return  res.send({ status:USER_RESPONSE.FAILED, message:USER_RESPONSE.GET_DOESNT_USER });
+        }      
+        res.send({ status:USER_RESPONSE.SUCCESS, message:USER_RESPONSE.GET_USER ,data:getUser });
+        } catch (error) {
+          error.desc = USER_RESPONSE.GET_DOESNT_USER;
+          next(error);
+        }
+  },
+  
+
+
+
+
+
+
+
+
+
+
 };
 
 export default UserController;
