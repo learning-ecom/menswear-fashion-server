@@ -4,5 +4,11 @@ export const Populate={
     },
     cart:{
         path:'product user'
+    },
+    booking:{
+        path:'product user'
+    },
+    coupon:{
+        path:'booking user product'
     }
 }

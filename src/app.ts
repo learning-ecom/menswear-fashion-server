@@ -10,7 +10,7 @@ import ImgRoute from "./router/img.router"
 import ProductRoute from "./router/product.router"
 import CartRoute from "./router/cart.router"
 import CouponRoute from "./router/coupon.router"
-// import BookingRoute from "./router/booking.router"
+import BookingRoute from "./router/booking.router"
 import AddressRoute from "./router/address.router"
 
 const app = express();
@@ -40,7 +40,7 @@ app.use("/api/v1/img", ImgRoute);
 app.use("/api/v1/product",ProductRoute);
 app.use("/api/v1/cart", CartRoute);
 app.use("/api/v1/coupon",CouponRoute)
-// app.use("/api/v1/booking",BookingRoute)
+app.use("/api/v1/booking",BookingRoute)
 app.use("/api/v1/address",AddressRoute)
 
 // Error Handler
