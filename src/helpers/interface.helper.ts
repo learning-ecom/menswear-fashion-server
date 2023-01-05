@@ -25,12 +25,15 @@ export interface  IUser{
     password?:string,
     phone?:string,
     otp?:string,
+    discount:number,
     reset_password_hash?:string,
     reset_password_expiry?: Date,
-    address?:string,
+    address?:[{street?:string,
     city?:string,
     state?:string,
-    postcode?:string,
+    pincode?:string,
+    delivery_number:String
+}]
     session_token?:string,
     is_deleted?:boolean,
     created_at?: Date,
@@ -109,10 +112,31 @@ export interface ICoupon{
     isdeleted?:boolean
 }
 
+export interface IBooking{
+    quantity?:number,
+    status?:any,
+    amount?:number,
+    payment_type?:string,
+    user_address?:[{
+    address?:string,
+    town?:string,
+    country?:string,
+    postalcode?:string,
+    phone_number?: string
+    }],
+    delivery_time?:Date,
+    reason_of_reject?:string,
+    coupon?:string,
+    product?:any[]
+    user?:string
+}
 
 
-
-
+export interface IUserCoupon{
+    user:IUser,
+    product:IProduct,
+    coupon:ICoupon
+} 
 
 
 
