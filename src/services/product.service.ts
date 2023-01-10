@@ -24,6 +24,16 @@ const ProductService = {
     const getProduct = await ProductModel.findOne(query);
     return getProduct;
   },
+  updateAllProduct:async(product_id:any,stock:any)=>{
+    
+    
+    // const updateAllProduct =await ProductModel.update({_id: { $in: product_id}},{$set:size}).lean()
+    const updateAllProduct =await ProductModel.updateMany(product_id,{$set:stock}).lean()
+    if (updateAllProduct.modifiedCount === 0) {
+      return false;
+    }
+    return true;
+},
 };
 
 export default ProductService;

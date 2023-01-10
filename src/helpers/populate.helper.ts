@@ -3,10 +3,10 @@ export const Populate={
         path:'user'
     },
     cart:{
-        path:'product user'
+        path:'product'
     },
     booking:{
-        path:'product user'
+        path:'user coupon'
     },
     coupon:{
         path:'booking user product'

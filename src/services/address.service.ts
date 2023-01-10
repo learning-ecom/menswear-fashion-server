@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 const AddressService = {
 
-    createAddress: async (query: IUser, data:any) => {
+    createAddress: async (query:IUser, data:any) => {
 
       let createAddress: IMongooseUpdate = await User.updateOne(query, {$push:{address:{$each:[data],postion:0}}}).lean();
       // Update is empty return false stopping the update

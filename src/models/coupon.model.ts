@@ -23,7 +23,7 @@ const couponSchema = new schema({
         type:Boolean,
         default:false
      },
-     isdeleted:{
+     is_deleted:{
         type:Boolean,
         default:false
      }

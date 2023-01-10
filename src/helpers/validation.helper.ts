@@ -1,5 +1,4 @@
-import Joi from "joi";
-
+import Joi from 'joi'
 export const userSignup: any = Joi.object({
   email: Joi.string().email().required(),
   phone: Joi.string()
@@ -16,7 +15,7 @@ export const userLogin: any = Joi.object({
   password: Joi.string().required(),
 });
 
-export const image: any = Joi.object({
+export const createImage: any = Joi.object({
   banner: Joi.array().items(Joi.string().optional()),
   short_banner: Joi.array().items(Joi.string().optional()),
   autumn: Joi.array().items(Joi.string().optional()),
@@ -32,7 +31,8 @@ export const image: any = Joi.object({
   footer_img: Joi.array().items(Joi.string().optional()),
 });
 
-export const product: any = Joi.object({
+export const createProduct: any = Joi.object({
+  _id: Joi.string().optional(),
   img: Joi.string().required(),
   desc: Joi.string().required(),
   amount: Joi.number().required(),
@@ -41,17 +41,20 @@ export const product: any = Joi.object({
   color: Joi.array().items(Joi.string().optional()),
   size: Joi.array().items(Joi.string().optional()),
   price: Joi.string().optional(),
-  stock: Joi.array().items(
-    Joi.object({
+  discount:Joi.number().optional(),
+  stock: Joi.object({
       S: Joi.number().optional(),
       M: Joi.number().optional(),
       L: Joi.number().optional(),
       XL: Joi.number().optional(),
       XXL: Joi.number().optional(),
       XXXL: Joi.number().optional(),
-    })
-  ),
+    }),
   ratings:Joi.number().optional(),
+  modified_at:Joi.string().optional(),
+  is_deleted:Joi.boolean().optional(),
+  created_at:Joi.string().optional(),
+  __v:Joi.number().optional(),
 });
 
 export const getProduct: any = Joi.object({
@@ -73,3 +76,61 @@ export const  createCart:any=Joi.object({
 export const deleteCartById:any=Joi.object({
   cart_id:Joi.string().required(),
 })
+
+
+export const createAddress:any=Joi.object({
+  name:Joi.string().required(),
+  street: Joi.string().required(),
+  city: Joi.string().required(),
+  country: Joi.string().required(),
+  pincode: Joi.string().required(),
+  delivery_number:Joi.string().required(),
+})
+
+export const editAddress:any=Joi.object({
+  address_id:Joi.string().required(),
+  name:Joi.string().optional(),
+  street: Joi.string().optional(),
+  city: Joi.string().optional(),
+  country: Joi.string().optional(),
+  pincode: Joi.string().optional(),
+  delivery_number:Joi.string().optional(),
+})
+export const removeAddress:any=Joi.object({
+  address_id:Joi.string().required(),
+
+})
+export const defaultAddress:any=Joi.object({
+  address_id:Joi.string().required(),
+})
+
+export const createBooking:any=Joi.object({
+  amount: Joi.number().required(),
+  payment_type:Joi.string().required(),
+  user_address:Joi.object({
+    name:Joi.string().required(),
+    street: Joi.string().required(),
+    city: Joi.string().required(),
+    country: Joi.string().required(),
+    pincode: Joi.string().required(),
+    delivery_number:Joi.string().required(),
+  }) ,
+  cart: Joi.array().items(Joi.object({
+    _id:Joi.string().optional(),
+    size:Joi.string().optional(),
+    status:Joi.string().optional(),
+    quantity:Joi.number().optional(),
+    modified_at:Joi.string().optional(),
+    is_deleted:Joi.boolean().optional(),
+    created_at:Joi.string().optional(),
+    __v:Joi.number().optional(),
+    user:Joi.string().optional(),
+    product:createProduct
+  })),
+  user: Joi.string().optional(),
+  coupon: Joi.string().optional()
+})
+
+        
+    
+      

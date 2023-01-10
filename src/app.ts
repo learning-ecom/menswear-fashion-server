@@ -12,6 +12,7 @@ import CartRoute from "./router/cart.router"
 import CouponRoute from "./router/coupon.router"
 import BookingRoute from "./router/booking.router"
 import AddressRoute from "./router/address.router"
+import singleCartRoute from "./router/singlecart.router"
 
 const app = express();
 const server= http.createServer(app);
@@ -42,6 +43,7 @@ app.use("/api/v1/cart", CartRoute);
 app.use("/api/v1/coupon",CouponRoute)
 app.use("/api/v1/booking",BookingRoute)
 app.use("/api/v1/address",AddressRoute)
+app.use("/api/v1/singlecart",singleCartRoute)
 
 // Error Handler
 app.use(function(err, req, res, next) {

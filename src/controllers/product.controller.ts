@@ -30,6 +30,10 @@ const ProductController = {
     }
   },
 
+
+
+
+
   // getAllProduct
   getAllProduct: async (req: IRequest, res: IResponse, next: INextFunction) => {
     try {

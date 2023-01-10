@@ -1,4 +1,3 @@
-import { IBooking} from "../helpers/interface.helper"
 import { Populate } from "../helpers/populate.helper";
 import BookingModel from "../models/Booking.model"
 
@@ -7,7 +6,7 @@ import BookingModel from "../models/Booking.model"
 
 const BookingService={
 
-    createBooking:async(query:IBooking)=>{
+    createBooking:async(query:any)=>{
         const createBooking= await BookingModel.create(query);
         return createBooking
     },
@@ -21,10 +20,10 @@ const BookingService={
     },
 
     getBooking:async(query:any)=>{
-        const getBooking= await BookingModel.findOne(query).lean()
+        const getBooking= await BookingModel.findOne(query).populate(Populate.booking).lean()
         return getBooking
 
-    },
+    }, 
     updateBooking:async(query:any,update:any)=>{
        
         const updateBooking =await BookingModel.updateOne(query,update).lean()
