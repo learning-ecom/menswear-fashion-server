@@ -14,11 +14,11 @@ const router=Router();
 
 
 
-router.post("/create_address",UserController.verifyToken,AddressController.createAddress)
+router.post("/create_address",UserController.verifyToken,validator.body(Validation.createAddress),AddressController.createAddress)
 router.post("/get_many_address",UserController.verifyToken,AddressController.getManyAddress)
-router.post("/default_address",UserController.verifyToken,AddressController.defaultAddress)
-router.post("/edit_address",UserController.verifyToken,AddressController.editAddress)
-router.post("/remove_address",UserController.verifyToken,AddressController.removeAddress)
+router.post("/default_address",UserController.verifyToken,validator.body(Validation.defaultAddress),AddressController.defaultAddress)
+router.post("/edit_address",UserController.verifyToken,validator.body(Validation.editAddress),AddressController.editAddress)
+router.post("/remove_address",UserController.verifyToken,validator.body(Validation.removeAddress),AddressController.removeAddress)
 
 
 export default router

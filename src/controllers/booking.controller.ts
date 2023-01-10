@@ -5,10 +5,14 @@ import {
   IResponse,
 } from "../helpers/interface.helper";
 import HTTP from "http-status-codes";
-
+import _ from 'lodash'
 import BookingService from "../services/Booking.service";
 import { BOOKING } from "../constants/booking.constants";
 import UserCouponService from "../services/usercoupon.service";
+import CartService from "../services/cart.service";
+import SingleCartService from "../services/singlecart.service";
+import ProductService from "../services/product.service";
+import ProductModel from "../models/product.model";
 
 const BookingController = {
   createBooking: async (req: IRequest, res: IResponse, next: INextFunction) => {
@@ -17,17 +21,36 @@ const BookingController = {
        req.body.status = BOOKING.PLACED
         const createBooking = await BookingService.createBooking(req.body);
         if(!createBooking){
-            res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status:BOOKING_RESPONSE.FAILED, message:BOOKING_RESPONSE.BOOKING_DOESNT_CREATED})
+            return res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status:BOOKING_RESPONSE.FAILED, message:BOOKING_RESPONSE.BOOKING_DOESNT_CREATED})
           }  
-          if(createBooking.coupon){
-              const couponObject:any={
-                booking:createBooking._id,
-                user:req.decoded.id,
-                coupon:createBooking.coupon
+
+            if(createBooking.cart){
+              createBooking.cart.map(async(item:any)=>{
+                  let query:any
+                  let size:any=`stock.${item.size}`
+                  query = item.product.stock[item.size]-item.quantity;
+                await ProductService.updateAllProduct({_id:item.product},{[size]:query})   
+                })
               }
-              await UserCouponService.createUserCoupon(couponObject)
-          }     
-        res.send({ status:BOOKING_RESPONSE.SUCCESS, message:BOOKING_RESPONSE.BOOKING_CREATED ,data:createBooking});
+            if (createBooking.coupon) {
+              const couponObject: any = {
+                booking: createBooking._id,
+                user: req.decoded.id,
+                coupon: createBooking.coupon,
+              };
+              await UserCouponService.createUserCoupon(couponObject);
+            } else if (createBooking.cart) {
+              if (createBooking.cart.length === 1) {
+                await SingleCartService.deleteSingleCart({ user: req.decoded.id});
+              } 
+              else {
+                await CartService.deleteAllCart({ user: req.decoded.id });
+              }
+            }
+
+        
+          res.send({ status:BOOKING_RESPONSE.SUCCESS, message:BOOKING_RESPONSE.BOOKING_CREATED ,data:createBooking});
+          
       }
 
     catch (error) {

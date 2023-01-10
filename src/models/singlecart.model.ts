@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
 
-const cartSchema = new Schema({
+const singleCartSchema = new Schema({
     quantity:Number,
     size:String,
     status:String,
@@ -22,7 +22,6 @@ const cartSchema = new Schema({
 },
 {timestamps:{createdAt:'created_at',updatedAt:'modified_at'}}
 )
+const SingleCartModel = mongoose.model("singlecart",singleCartSchema)
 
-const CartModel = mongoose.model("cart",cartSchema)
-
-export default CartModel;
+export default SingleCartModel;

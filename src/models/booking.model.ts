@@ -8,28 +8,33 @@ const bookingSchema = new Schema({
     status:String,
     amount:String,
     payment_type:String,
-    user_address:[{
-    address:String,
+    user_address:{
+    street:String,
     town:String,
     country:String,
-    postalcode:String,
-    phone_number: String
-    }],
+    pincode:String,
+    delivery_number: String
+    },
     delivery_time:Date,
     reason_of_reject:String,
-    coupon:String,
-    product: [{
-        type: mongoose.Types.ObjectId,
-        ref: "product"
-      }],
-
+    coupon:{
+      type: mongoose.Types.ObjectId,
+      ref: "coupon"
+    },
+    cart: [],
     user:{
         type: mongoose.Types.ObjectId,
         ref: "user"
       },
 
-})
-const BookingModel = mongoose.model("Booking",bookingSchema)
+      is_deleted:{
+        type:Boolean,
+        default:false
+     }
+},
+{timestamps:{createdAt:'created_at',updatedAt:'modified_at'}}
+)
+const BookingModel = mongoose.model("booking",bookingSchema)
 
 export default BookingModel;
 

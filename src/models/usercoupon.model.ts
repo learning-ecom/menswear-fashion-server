@@ -15,7 +15,11 @@ const userCouponSchema= new Schema({
     booking:{
         type:mongoose.Types.ObjectId,
         ref:'booking'
-    }
+    },
+    is_deleted:{
+        type:Boolean,
+        default:false
+     }
 },
 {timestamps:{createdAt:'created_at',updatedAt:'modified_at'}}
 )

@@ -2,6 +2,7 @@ import { INextFunction, IRequest, IResponse } from "../helpers/interface.helper"
 import CartService from "../services/cart.service"
 import HTTP from "http-status-codes";
 import { CART_RESPONSE } from "../constants/response.constant";
+import { CART } from "../constants/cart.constants";
 
 
 
@@ -12,6 +13,7 @@ const cartController= {
     try {
         const query={
             product:req.body.product_id,
+            status:CART.QUEUED,
             size:req.body.size,
             quantity:req.body.quantity,
             user:req.decoded.id
@@ -62,18 +64,40 @@ const cartController= {
           next(error);
         }
   },
+  getManyPopulateCart:async(req:IRequest,res:IResponse,next:INextFunction)=>{
+    try {
+        const query={
+           user_id:req.decoded.id,
+        }
+        let getManyPopulateCart = await  CartService.getManyPopulateCart(query)
+
+        if(!getManyPopulateCart){
+         return   res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status:CART_RESPONSE.FAILED, message:CART_RESPONSE.GET_ALL_DOESNT_CART});
+        }       
+        res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_ALL_CART ,data:getManyPopulateCart ,count:getManyPopulateCart.length});
+        } catch (error) {
+          error.desc = CART_RESPONSE.GET_ALL_DOESNT_CART;
+          next(error);
+        }
+  },
   getCart:async(req:IRequest,res:IResponse,next:INextFunction)=>{
     try {
       const query={ product:req.body.product_id,size:req.body.size, user:req.decoded.id}
       
         let getCart = await  CartService.getCart(query)
-
+        
         if(!getCart){
          return  res.send({ status:CART_RESPONSE.FAILED, message:CART_RESPONSE.GET_DOESNT_CART });
         }
         //     res.send({ status:CART_RESPONSE.FAILED, message:CART_RESPONSE.GET_DOESNT_CART});
-        // }       
-        res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_CART ,data:getCart });
+        // }     
+        if(getCart.status===CART.QUEUED){
+           
+         res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_CART ,data:getCart ,i:"uj" });
+        }
+        else{
+          res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_CART ,data:getCart });
+        }
         } catch (error) {
           error.desc = CART_RESPONSE.GET_DOESNT_CART;
           next(error);

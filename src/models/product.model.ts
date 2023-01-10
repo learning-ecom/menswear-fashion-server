@@ -7,15 +7,18 @@ const productSchema= new Schema({
     desc:String,
     amount:Number,
     categories:[String],
+    discount:Number,
     brand:String,
     color:[String],
     size:[String],
     price:String,
-    stock:[{S:Number,M:Number,L:Number,XL:Number,XXL:Number,XXXL:Number}],
+    stock:{S:Number,M:Number,L:Number,XL:Number,XXL:Number,XXXL:Number},
     is_deleted:{type:Boolean, default:false},
-    ratings:Number
+    ratings:Number,
 
-})
+},
+{timestamps:{createdAt:'created_at',updatedAt:'modified_at'}}
+)
 
 
 const ProductModel = mongoose.model('product',productSchema)

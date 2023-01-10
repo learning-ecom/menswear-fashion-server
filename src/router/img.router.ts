@@ -7,7 +7,7 @@ const validator = expressValidator.createValidator({passError: true,statusCode:4
 
 const router=Router();
 
-router.post("/create_img",validator.body(Validation.image),ImageController.createImage)
+router.post("/create_img",validator.body(Validation.createImage),ImageController.createImage)
 router.post("/get_img",ImageController.getImage)
 
 export default router
