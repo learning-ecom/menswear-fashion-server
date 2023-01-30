@@ -51,14 +51,14 @@ const cartController= {
   getManyCart:async(req:IRequest,res:IResponse,next:INextFunction)=>{
     try {
         const query={
-           user_id:req.decoded.id,
+           user:req.decoded.id,
         }
         let getManyCart = await  CartService.getManyCart(query)
 
         if(!getManyCart){
          return   res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status:CART_RESPONSE.FAILED, message:CART_RESPONSE.GET_ALL_DOESNT_CART});
         }       
-        res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_ALL_CART ,data:getManyCart ,count:getManyCart.length});
+        res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_ALL_CART ,data:getManyCart });
         } catch (error) {
           error.desc = CART_RESPONSE.GET_ALL_DOESNT_CART;
           next(error);
@@ -67,14 +67,14 @@ const cartController= {
   getManyPopulateCart:async(req:IRequest,res:IResponse,next:INextFunction)=>{
     try {
         const query={
-           user_id:req.decoded.id,
+           user:req.decoded.id,
         }
         let getManyPopulateCart = await  CartService.getManyPopulateCart(query)
 
         if(!getManyPopulateCart){
          return   res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status:CART_RESPONSE.FAILED, message:CART_RESPONSE.GET_ALL_DOESNT_CART});
         }       
-        res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_ALL_CART ,data:getManyPopulateCart ,count:getManyPopulateCart.length});
+        res.send({ status:CART_RESPONSE.SUCCESS, message:CART_RESPONSE.GET_ALL_CART ,data:getManyPopulateCart });
         } catch (error) {
           error.desc = CART_RESPONSE.GET_ALL_DOESNT_CART;
           next(error);

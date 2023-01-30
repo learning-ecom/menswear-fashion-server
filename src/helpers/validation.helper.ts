@@ -107,18 +107,20 @@ export const defaultAddress:any=Joi.object({
 export const createBooking:any=Joi.object({
   amount: Joi.number().required(),
   payment_type:Joi.string().required(),
-  user_address:Joi.object({
+  stripe_id:Joi.string().optional(),
+
     name:Joi.string().required(),
     street: Joi.string().required(),
     city: Joi.string().required(),
     country: Joi.string().required(),
     pincode: Joi.string().required(),
     delivery_number:Joi.string().required(),
-  }) ,
-  cart: Joi.array().items(Joi.object({
+
+    cart: Joi.array().items(Joi.object({
     _id:Joi.string().optional(),
     size:Joi.string().optional(),
     status:Joi.string().optional(),
+    identify:Joi.string().optional(),
     quantity:Joi.number().optional(),
     modified_at:Joi.string().optional(),
     is_deleted:Joi.boolean().optional(),

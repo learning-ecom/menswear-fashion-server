@@ -13,25 +13,57 @@ import CartService from "../services/cart.service";
 import SingleCartService from "../services/singlecart.service";
 import ProductService from "../services/product.service";
 import ProductModel from "../models/product.model";
+import { dateGenerator } from "../helpers/function.helper";
 
 const BookingController = {
   createBooking: async (req: IRequest, res: IResponse, next: INextFunction) => {
     try {
-       req.body.user = req.decoded.id,
-       req.body.status = BOOKING.PLACED
-        const createBooking = await BookingService.createBooking(req.body);
+      const query:any={
+        quantity: req.body.cart.length,
+        status: BOOKING.PLACED,
+        amount: req.body.amount,
+        payment_type: req.body.payment_type,
+        user_address:{
+          street: req.body.street,
+          town: req.body.city,
+          country: req.body.country,
+          pincode: req.body.pincode,
+          delivery_number: req.body.delivery_number,
+        },
+        delivery_time:dateGenerator(),
+        carts: req.body.cart.map((item)=> {
+          return{ cart_id:item._id,
+           product:item.product,
+           size:item.size,
+           quantity:item.quantity,
+           identify:item.identify}
+          }),  
+        coupon: req.body.coupon,
+        user: req.decoded.id
+      }
+      if(req.body.payment_type === 'Online Payment'){
+        query.stripe_id=req.body.stripe_id
+      }
+        const createBooking:any= await BookingService.createBooking(query);
+        console.log(createBooking.carts[0])
         if(!createBooking){
             return res.status(HTTP.UNPROCESSABLE_ENTITY).send({ status:BOOKING_RESPONSE.FAILED, message:BOOKING_RESPONSE.BOOKING_DOESNT_CREATED})
           }  
-
-            if(createBooking.cart){
-              createBooking.cart.map(async(item:any)=>{
+            if(createBooking.carts){
+              createBooking.carts.map(async(item:any)=>{
                   let query:any
                   let size:any=`stock.${item.size}`
                   query = item.product.stock[item.size]-item.quantity;
                 await ProductService.updateAllProduct({_id:item.product},{[size]:query})   
                 })
+                if (createBooking.carts[0].identify === "SINGLEITEM") {
+                  await SingleCartService.deleteSingleCart({ user: req.decoded.id});
+                } 
+                else {
+                  await CartService.deleteAllCart({ user: req.decoded.id });
+                }
               }
+             
             if (createBooking.coupon) {
               const couponObject: any = {
                 booking: createBooking._id,
@@ -39,16 +71,8 @@ const BookingController = {
                 coupon: createBooking.coupon,
               };
               await UserCouponService.createUserCoupon(couponObject);
-            } else if (createBooking.cart) {
-              if (createBooking.cart.length === 1) {
-                await SingleCartService.deleteSingleCart({ user: req.decoded.id});
-              } 
-              else {
-                await CartService.deleteAllCart({ user: req.decoded.id });
-              }
-            }
-
-        
+            } 
+            
           res.send({ status:BOOKING_RESPONSE.SUCCESS, message:BOOKING_RESPONSE.BOOKING_CREATED ,data:createBooking});
           
       }
