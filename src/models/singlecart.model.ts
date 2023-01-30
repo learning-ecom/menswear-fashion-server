@@ -7,6 +7,7 @@ const singleCartSchema = new Schema({
     quantity:Number,
     size:String,
     status:String,
+    identify:String,
     product: {
         type: mongoose.Types.ObjectId,
         ref: "product"

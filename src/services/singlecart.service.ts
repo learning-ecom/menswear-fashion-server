@@ -18,7 +18,6 @@ const SingleCartService={
 
     }, 
     updateSingleCart:async(query:any,update:any)=>{
-       
         const updateSingleCart =await SingleCartModel.updateOne(query,update).lean()
         return updateSingleCart
     },

@@ -4,6 +4,7 @@ import HTTP from "http-status-codes";
 import { CART_RESPONSE } from "../constants/response.constant";
 import { CART } from "../constants/cart.constants";
 import SingleCartService from "../services/singlecart.service";
+import { SINGLECART } from "../constants/singleCart.constants";
 
 
 
@@ -20,6 +21,7 @@ const SingleCartController= {
         const query={
             product:req.body.product_id,
             status:CART.QUEUED,
+            identify:SINGLECART.SINGLEITEM,
             size:req.body.size,
             quantity:req.body.quantity,
             user:req.decoded.id
