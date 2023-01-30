@@ -1,5 +1,7 @@
 import {nanoid} from "nanoid"
-const voucher_codes = require("voucher-code-generator");
+import voucher_codes from "voucher-code-generator"
+import DateGenerator from 'random-date-generator'
+import moment from "moment";
 
 
 
@@ -19,3 +21,13 @@ export const couponGenerator = () => {
 };
 
 
+export const dateGenerator=()=>{
+   DateGenerator.getRandomDate() // random date
+
+let startDate = new Date();
+const endDate = new Date();
+endDate.setDate(endDate.getDate() + 7);
+ return DateGenerator.getRandomDateInRange(startDate, endDate); // random date in range
+
+
+}

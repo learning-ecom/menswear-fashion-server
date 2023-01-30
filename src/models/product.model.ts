@@ -13,7 +13,6 @@ const productSchema= new Schema({
     size:[String],
     price:String,
     stock:{S:Number,M:Number,L:Number,XL:Number,XXL:Number,XXXL:Number},
-    is_deleted:{type:Boolean, default:false},
     ratings:Number,
 
 },

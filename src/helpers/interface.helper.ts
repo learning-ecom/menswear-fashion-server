@@ -25,7 +25,7 @@ export interface  IUser{
     password?:string,
     phone?:string,
     otp?:string,
-    discount:number,
+    // discount:number,
     reset_password_hash?:string,
     reset_password_expiry?: Date,
     address?:[{
