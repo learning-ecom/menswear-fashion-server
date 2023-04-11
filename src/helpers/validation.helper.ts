@@ -4,7 +4,8 @@ export const userSignup: any = Joi.object({
   phone: Joi.string()
     .regex(/[0-9]{10}/)
     .optional(),
-  password: Joi.string().required(),
+  password: Joi.string().optional(),
+  email_verified: Joi.boolean().optional(),
   role: Joi.string().optional(),
   first_name: Joi.string().required(),
   last_name: Joi.string().required(),
@@ -12,7 +13,8 @@ export const userSignup: any = Joi.object({
 
 export const userLogin: any = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().required(),
+  password: Joi.string().optional(),
+  email_verified: Joi.boolean().optional(),
 });
 
 export const createImage: any = Joi.object({
